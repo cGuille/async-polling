@@ -1,0 +1,30 @@
+{
+  "name": "async-polling",
+  "version": "0.1.0",
+  "authors": [
+    "@cGuille <cguille.dev@gmail.com>"
+  ],
+  "description": "An easy way to run reliable polling without messing with setTimeout.",
+  "main": "build/async-polling.js",
+  "keywords": [
+    "poll",
+    "polling",
+    "async",
+    "setTimeout",
+    "setInterval",
+    "task"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/cGuille/async-polling#readme",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "Makefile",
+    "lib",
+    "src",
+    "package.json"
+  ]
+}
