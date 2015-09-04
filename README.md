@@ -17,7 +17,7 @@ bower install async-polling
 Then include the script:
 
 ```html
-<script src="bower_components/async-polling/build/async-polling.js"></script>
+<script src="bower_components/async-polling/build/async-polling.min.js"></script>
 <script>
 // Here you can use the AsyncPolling constructor.
 </script>
