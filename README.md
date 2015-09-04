@@ -2,6 +2,8 @@
 
 An easy way to run reliable polling without messing with setTimeout.
 
+[Here is an article](http://zetafleet.com/blog/why-i-consider-setinterval-harmful) explaining why using `setInterval` is discouraged, especially when dealing with asynchronous tasks.
+
 ## Installation
 
 ### In the browser
