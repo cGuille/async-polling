@@ -602,6 +602,7 @@
         return Object.prototype.hasOwnProperty.call(obj, prop);
     }
 }(window.util = {}));
+;
 // Copyright Joyent, Inc. and other Node contributors.
 // Adapted to work in the browser by Guillaume Charmetant (@cGuille)
 //
@@ -895,6 +896,7 @@
         return ret;
     };
 }());
+;
 (function () {
     'use strict';
 
@@ -974,3 +976,5 @@
         module.exports = AsyncPolling;
     }
 }());
+
+//# sourceMappingURL=async-polling.js.map
