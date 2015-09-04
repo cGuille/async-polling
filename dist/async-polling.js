@@ -601,7 +601,7 @@
     function hasOwnProperty(obj, prop) {
         return Object.prototype.hasOwnProperty.call(obj, prop);
     }
-}(window.util = {}));
+}(window.nodeUtil = {}));
 ;
 // Copyright Joyent, Inc. and other Node contributors.
 // Adapted to work in the browser by Guillaume Charmetant (@cGuille)
@@ -628,10 +628,9 @@
 (function () {
     'use strict';
 
-    // Module dependencies:
-    //     - util.
+    var util = window.nodeUtil;
 
-    window.EventEmitter = EventEmitter;
+    window.nodeEventEmitter = EventEmitter;
 
     function EventEmitter() {
         EventEmitter.init.call(this);
@@ -902,8 +901,8 @@
 
     var hasWindow = typeof(window) !== 'undefined';
 
-    var inherits = hasWindow ? window.util.inherits : require('util').inherits;
-    var EventEmitter = hasWindow ? window.EventEmitter : require('events').EventEmitter;
+    var inherits = hasWindow ? window.nodeUtil.inherits : require('util').inherits;
+    var EventEmitter = hasWindow ? window.nodeEventEmitter : require('events').EventEmitter;
 
     /**
      * This event emitter can fire the following events:

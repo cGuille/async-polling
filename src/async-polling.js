@@ -3,8 +3,8 @@
 
     var hasWindow = typeof(window) !== 'undefined';
 
-    var inherits = hasWindow ? window.util.inherits : require('util').inherits;
-    var EventEmitter = hasWindow ? window.EventEmitter : require('events').EventEmitter;
+    var inherits = hasWindow ? window.nodeUtil.inherits : require('util').inherits;
+    var EventEmitter = hasWindow ? window.nodeEventEmitter : require('events').EventEmitter;
 
     /**
      * This event emitter can fire the following events:
