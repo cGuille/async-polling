@@ -38,44 +38,90 @@ var AsyncPolling = require('async-polling');
 
 ## Usage
 
-Here is a simple how-to:
+Here is the basic usage:
 
 ```js
 var AsyncPolling = require('async-polling');
 
-var polling = AsyncPolling(function (end) {
-    console.time('api call');
-    apiFetchMock(function (error, response) {
-        console.timeEnd('api call');
-        end(error, response);
-    });
-    // Or the simpler but less explicit: apiFetchMock(end);
-}, 500);
-
-polling.on('result', function (result) {
-    console.log('result:', result);
-});
-
-var errorCount = 0;
-polling.on('error', function (error) {
-    ++errorCount;
-    console.error('error #' + errorCount + ':', error);
-    if (errorCount >= 3) {
-        polling.stop();
-    }
-});
-
-polling.run();
-
-function apiFetchMock(callback) {
-    setTimeout(function () {
-        if (Math.random() < 0.5) {
-            callback(new Error('This is an API mock error.'));
-        } else {
-            callback(null, 'Here is the mock API response.');
-        }
-    }, Math.random() * 5000);
-}
+AsyncPolling(function (end) {
+    // Do whatever you want.
+        
+    // Then notify the polling when your job is done:
+    end();
+    // This will schedule the next call.
+}, 3000).run();
 ```
 
-You can also run [the demo script](https://github.com/cGuille/async-polling/blob/master/demo/demo.js).
+You can also send a result to the `end` callback with the usual signature `(error, result)`. Pass `null` as first argument when everythin is fine:
+```js
+var AsyncPolling = require('async-polling');
+
+var polling = AsyncPolling(function (end) {
+    someAsynchroneProcess(function (error, response) {
+        if (error) {
+            // Notify the error:
+            end(error)
+            return;
+        }
+        
+        // Do something with the result.
+        
+        // Then send it to the listeners:
+        end(null, result);
+    });
+}, 3000);
+
+polling.on('error', function (error) {
+    // The polling encountered an error, handle it here.
+});
+polling.on('result', function (result) {
+    // The polling yielded some result, process it here.
+});
+
+polling.run(); // Let's start polling.
+```
+
+See also [the demo script](https://github.com/cGuille/async-polling/blob/master/demo/demo.js).
+
+## API
+
+### Create a polling
+
+```js
+var polling = AsyncPolling(pollingFunc, delay);
+```
+
+- `pollingFunc(end)`: [`function`] The function to run periodically; takes a callback as parameter to notify the end of the process and possibly send a result. It will be bound to the polling object.
+- `delay`: [`number`(ms)|`object`] the delay between two calls of `pollingFunc`. If the type is not `number`, the `.valueOf()` method of the object will be called to retrieve the amount of milliseconds.
+
+### Run the polling
+
+```js
+polling.run();
+```
+
+### Stop the polling
+
+```js
+polling.stop();
+```
+
+Since the polling function is bound to `polling`, one can call `this.stop()` from within the polling function:
+```js
+AsyncPolling(function (end) {
+    // Do some stuff
+    
+    // Here I want to stop the polling:
+    this.stop();
+    end();
+}, 3000).run();
+```
+
+### Listen to events
+
+```js
+polling.on(eventName, listener);
+```
+
+- `eventName`: The name of the event for which we register (`run`, `start`, `error`, `result`, `end`, `schedule`, `stop`).
+- `listener`: The function to call when the specified event occurs.
