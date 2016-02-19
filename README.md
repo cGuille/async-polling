@@ -41,8 +41,6 @@ var AsyncPolling = require('async-polling');
 Here is the basic usage:
 
 ```js
-var AsyncPolling = require('async-polling');
-
 AsyncPolling(function (end) {
     // Do whatever you want.
         
@@ -54,8 +52,6 @@ AsyncPolling(function (end) {
 
 You can also send a result to the `end` callback with the usual signature `(error, result)`. Pass `null` as first argument when everythin is fine:
 ```js
-var AsyncPolling = require('async-polling');
-
 var polling = AsyncPolling(function (end) {
     someAsynchroneProcess(function (error, response) {
         if (error) {
