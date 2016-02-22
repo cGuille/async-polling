@@ -16,8 +16,10 @@ var polling = AsyncPolling(function (end) {
     end(null, '#' + i + ' wait a second...');
 }, 1000);
 
-['run', 'start', 'end', 'cancel', 'stop'].forEach(function (eventName) {
-    polling.on(eventName, function () { console.log('lifecycle:', eventName); });
+['run', 'start', 'end', 'schedule', 'stop'].forEach(function (eventName) {
+    polling.on(eventName, function () {
+        console.log('lifecycle:', eventName);
+    });
 });
 
 polling.on('result', function (result) {
@@ -26,10 +28,6 @@ polling.on('result', function (result) {
 
 polling.on('error', function (error) {
     console.error('error:', error);
-});
-
-polling.on('schedule', function (delay) {
-    console.log('scheduled poll in ' + delay + 'ms\n');
 });
 
 if (typeof(require) !== 'undefined') {
